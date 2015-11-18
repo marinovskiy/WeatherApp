@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Weather">
+        <EditTextPreference
+            android:key="city"
+            android:summary="Write city where you want to see weather"
+            android:title="City" />
+        <ListPreference
+            android:entries="@array/measure_sign"
+            android:entryValues="@array/measure_values"
+            android:key="temp_measure"
+            android:summary="Measure of temperature"
+            android:title="Measure" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Application">
+        <ListPreference
+            android:entries="@array/language_sign"
+            android:entryValues="@array/language_values"
+            android:key="language"
+            android:summary="Language of application"
+            android:title="Language" />
+        <ListPreference
+            android:entries="@array/theme_sign"
+            android:entryValues="@array/theme_values"
+            android:key="theme"
+            android:summary="Theme of application"
+            android:title="Theme" />
+    </PreferenceCategory>
+</PreferenceScreen>

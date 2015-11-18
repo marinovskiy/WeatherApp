@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="action_settings">Settings</string>
+    <string name="url">http://api.openweathermap.org/data/2.5/forecast?q=Cherkasy,us&amp;mode=json&amp;appid=2de143494c0b295cca9337e1e96b00e0</string>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="measure_values">
+        <item>k</item>
+        <item>c</item>
+        <item>f</item>
+    </array>
+
+    <array name="measure_sign">
+        <item>Kelvin</item>
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </array>
+
+    <array name="language_values">
+        <item>eng</item>
+        <item>ukr</item>
+        <item>rus</item>
+    </array>
+
+    <array name="language_sign">
+        <item>English</item>
+        <item>Ukrainian</item>
+        <item>Russian</item>
+    </array>
+
+    <array name="theme_values">
+        <item>dark</item>
+        <item>light</item>
+    </array>
+
+    <array name="theme_sign">
+        <item>Dark</item>
+        <item>Light</item>
+    </array>
+
+</resources>
