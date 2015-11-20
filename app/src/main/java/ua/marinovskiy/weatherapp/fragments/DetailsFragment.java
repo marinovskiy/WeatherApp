@@ -1,7 +1,9 @@
 package ua.marinovskiy.weatherapp.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ public class DetailsFragment extends Fragment {
     Context context;
     Weather weather;
     ImageView iv_weather_icon;
+    SharedPreferences preferences;
     TextView tv_city, tv_time, tv_date, tv_temperature, tv_description, tv_wind_deg, tv_wind_speed, tv_humidity, tv_pressure;
     String city, time, date, temperature, description, wind_deg, wind_speed, humidity, pressure;
 
@@ -50,6 +53,7 @@ public class DetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         context = getActivity().getApplicationContext();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (getActivity() instanceof DetailsActivity) {
             position = getArguments().getInt("position");
@@ -60,6 +64,7 @@ public class DetailsFragment extends Fragment {
     void updateContent(int position) {
         weather = MainFragment.myWeatherList.get(position);
 
+        city = preferences.getString("city", "");
         time = ListManager.getTextTime(weather.getDateTime());
         date = ListManager.getTextDate(weather.getDateTime());
         temperature = ListManager.formatTemp(context, weather.getTemperature());
@@ -70,6 +75,7 @@ public class DetailsFragment extends Fragment {
         pressure = weather.getPressure();
 
         ListManager.loadImg(context, iv_weather_icon, weather.getIcon());
+        tv_city.setText(city);
         tv_time.setText(time);
         tv_date.setText(date);
         tv_temperature.setText(temperature);

@@ -1,10 +1,11 @@
 package ua.marinovskiy.weatherapp.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ public class MainFragment extends ListFragment {
 
     TextView header;
     Context context;
+    String url_part_1, url_part_2, city;
+    SharedPreferences preferences;
     MyListViewAdapter listViewAdapter;
     public static List<Weather> myWeatherList;
 
@@ -44,6 +47,7 @@ public class MainFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         header = (TextView) view.findViewById(R.id.header);
+        header.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -51,36 +55,52 @@ public class MainFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         context = getActivity().getApplicationContext();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        city = preferences.getString("city", "");
 
         if (!ListManager.checkInternetConnection(context)) {
-            header.setVisibility(View.INVISIBLE);
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-        }
-
-        try {
-            myWeatherList = new JSONtask().
-                    execute(context.getResources().getString(R.string.url)).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        listViewAdapter = new MyListViewAdapter(getActivity().getApplicationContext(), myWeatherList);
-        setListAdapter(listViewAdapter);
-
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onItemSelected(position);
+        } else if (!city.equals("")) {
+            url_part_1 = context.getResources().getString(R.string.url_part_1);
+            url_part_2 = context.getResources().getString(R.string.url_part_2);
+            try {
+                myWeatherList = new JSONtask().
+                        execute(String.format("%s%s%s", url_part_1, city, url_part_2)).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-        });
 
+            header.setVisibility(View.VISIBLE);
+            header.setText(String.format("Weather in %s", city));
+
+            listViewAdapter = new MyListViewAdapter(getActivity().getApplicationContext(), myWeatherList);
+            setListAdapter(listViewAdapter);
+
+            getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    onItemSelected(position);
+                }
+            });
+        }
+    }
+
+    void onItemSelected(int position) {
+        DetailsFragment detailsFragment = (DetailsFragment) getFragmentManager().
+                findFragmentById(R.id.fragment_weather_details);
+        if (detailsFragment == null) {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra("position", position);
+            startActivity(intent);
+        } else {
+            detailsFragment.updateContent(position);
+        }
     }
 
     private class JSONtask extends AsyncTask<String, Void, List<Weather>> {
 
-        ProgressDialog progressDialog;
         List<Weather> weatherList;
         JSONManager jsonManager;
 
@@ -92,14 +112,7 @@ public class MainFragment extends ListFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             jsonManager = new JSONManager();
-
-            /*progressDialog = new ProgressDialog(getActivity().getApplicationContext());
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Loading weather...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();*/
         }
 
         @Override
@@ -132,31 +145,6 @@ public class MainFragment extends ListFragment {
             return weatherList;
         }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(List<Weather> weatherList) {
-            super.onPostExecute(weatherList);
-
-            /*if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }*/
-        }
-    }
-
-    void onItemSelected(int position) {
-        DetailsFragment detailsFragment = (DetailsFragment) getFragmentManager().
-                findFragmentById(R.id.fragment_weather_details);
-        if (detailsFragment == null) {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra("position", position);
-            startActivity(intent);
-        } else {
-            detailsFragment.updateContent(position);
-        }
     }
 
 }

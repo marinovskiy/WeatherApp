@@ -13,26 +13,11 @@
         <item>Fahrenheit</item>
     </array>
 
-    <array name="language_values">
-        <item>eng</item>
-        <item>ukr</item>
-        <item>rus</item>
-    </array>
-
-    <array name="language_sign">
-        <item>English</item>
-        <item>Ukrainian</item>
-        <item>Russian</item>
-    </array>
-
-    <array name="theme_values">
-        <item>dark</item>
-        <item>light</item>
-    </array>
-
-    <array name="theme_sign">
-        <item>Dark</item>
-        <item>Light</item>
+    <array name="cities">
+        <item>Cherkasy</item>
+        <item>Lviv</item>
+        <item>New York</item>
+        <item>London</item>
     </array>
 
 </resources>
