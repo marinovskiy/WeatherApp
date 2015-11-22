@@ -11,6 +11,8 @@ import ua.marinovskiy.weatherapp.entities.Weather;
 
 public class JSONManager {
 
+    static String[] mas = {"North", "NorthEast", "East", "SouthEast", "South", "SouthWest", "West", "NorthWest"};
+
     public static List<Weather> parse(String json) {
         List<Weather> weatherList = new ArrayList<>();
         JSONObject mainJsonObject;
@@ -27,8 +29,8 @@ public class JSONManager {
                 weather.setTemperature(listJsonArray.getJSONObject(i).getJSONObject("main").getDouble("temp"));
                 weather.setCondition(listJsonArray.getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("main"));
                 weather.setDescription(listJsonArray.getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("description"));
-                weather.setWindDeg(listJsonArray.getJSONObject(i).getJSONObject("wind").getString("speed"));
-                weather.setWindSpeed(listJsonArray.getJSONObject(i).getJSONObject("wind").getString("deg"));
+                weather.setWindDeg(getWindDeg(listJsonArray.getJSONObject(i).getJSONObject("wind").getDouble("deg")));
+                weather.setWindSpeed(listJsonArray.getJSONObject(i).getJSONObject("wind").getString("speed"));
                 weather.setHumidity(listJsonArray.getJSONObject(i).getJSONObject("main").getString("humidity"));
                 weather.setPressure(listJsonArray.getJSONObject(i).getJSONObject("main").getString("pressure"));
                 weatherList.add(weather);
@@ -38,6 +40,11 @@ public class JSONManager {
         }
 
         return weatherList;
+    }
+
+    public static String getWindDeg(double windDegAngle) {
+        String windDeg = mas[(int) windDegAngle / 45];
+        return windDeg;
     }
 
 }

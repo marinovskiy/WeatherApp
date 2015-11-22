@@ -19,13 +19,31 @@ import ua.marinovskiy.weatherapp.managers.ListManager;
 
 public class DetailsFragment extends Fragment {
 
-    int position;
-    Context context;
-    Weather weather;
-    ImageView iv_weather_icon;
-    SharedPreferences preferences;
-    TextView tv_city, tv_time, tv_date, tv_temperature, tv_description, tv_wind_deg, tv_wind_speed, tv_humidity, tv_pressure;
-    String city, time, date, temperature, description, wind_deg, wind_speed, humidity, pressure;
+    int mPosition;
+    Context mContext;
+    Weather mWeather;
+    ImageView mWeatherIcon;
+    SharedPreferences mPreferences;
+
+    String mCity;
+    String mTime;
+    String mDate;
+    String mTemperature;
+    String mDescription;
+    String mWindDeg;
+    String mWindSpeed;
+    String mHumidity;
+    String mPressure;
+
+    TextView mTvCity;
+    TextView mTvTime;
+    TextView mTvDate;
+    TextView mTvTemperature;
+    TextView mTvDescription;
+    TextView mTvWindDeg;
+    TextView mTvWindSpeed;
+    TextView mTtvHumidity;
+    TextView mTvPressure;
 
     @Nullable
     @Override
@@ -36,53 +54,55 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        iv_weather_icon = (ImageView) view.findViewById(R.id.details_icon);
-        tv_city = (TextView) view.findViewById(R.id.details_city);
-        tv_time = (TextView) view.findViewById(R.id.details_time);
-        tv_date = (TextView) view.findViewById(R.id.details_date);
-        tv_temperature = (TextView) view.findViewById(R.id.details_temperature_value);
-        tv_description = (TextView) view.findViewById(R.id.details_description_value);
-        tv_wind_deg = (TextView) view.findViewById(R.id.details_wind_deg_value);
-        tv_wind_speed = (TextView) view.findViewById(R.id.details_wind_speed_value);
-        tv_humidity = (TextView) view.findViewById(R.id.details_humidity_value);
-        tv_pressure = (TextView) view.findViewById(R.id.details_pressure_value);
+        mWeatherIcon = (ImageView) view.findViewById(R.id.details_icon);
+        mTvCity = (TextView) view.findViewById(R.id.details_city);
+        mTvTime = (TextView) view.findViewById(R.id.details_time);
+        mTvDate = (TextView) view.findViewById(R.id.details_date);
+        mTvTemperature = (TextView) view.findViewById(R.id.details_temperature_value);
+        mTvDescription = (TextView) view.findViewById(R.id.details_description_value);
+        mTvWindDeg = (TextView) view.findViewById(R.id.details_wind_deg_value);
+        mTvWindSpeed = (TextView) view.findViewById(R.id.details_wind_speed_value);
+        mTtvHumidity = (TextView) view.findViewById(R.id.details_humidity_value);
+        mTvPressure = (TextView) view.findViewById(R.id.details_pressure_value);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        context = getActivity().getApplicationContext();
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mContext = getActivity().getApplicationContext();
 
         if (getActivity() instanceof DetailsActivity) {
-            position = getArguments().getInt("position");
-            updateContent(position);
+            mPosition = getArguments().getInt("position");
+            updateContent(mContext, mPosition);
+        } else {
+            updateContent(mContext, 0);
         }
     }
 
-    void updateContent(int position) {
-        weather = MainFragment.myWeatherList.get(position);
+    void updateContent(Context context, int position) {
+        mWeather = MainFragment.myWeatherList.get(position);
 
-        city = preferences.getString("city", "");
-        time = ListManager.getTextTime(weather.getDateTime());
-        date = ListManager.getTextDate(weather.getDateTime());
-        temperature = ListManager.formatTemp(context, weather.getTemperature());
-        description = weather.getDescription();
-        wind_deg = weather.getWindDeg();
-        wind_speed = weather.getWindSpeed();
-        humidity = weather.getHumidity();
-        pressure = weather.getPressure();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mCity = mPreferences.getString("mCity", "");
+        mTime = String.format(" %s", ListManager.getTextTime(mWeather.getDateTime()));
+        mDate = String.format(" %s", ListManager.getTextDate(mWeather.getDateTime()));
+        mTemperature = String.format(" %s", ListManager.formatTemp(context, mWeather.getTemperature()));
+        mDescription = String.format(" %s", mWeather.getDescription());
+        mWindDeg = String.format(" %s", mWeather.getWindDeg());
+        mWindSpeed = String.format(" %s %s", mWeather.getWindSpeed(), "m/s");
+        mHumidity = String.format(" %s", mWeather.getHumidity());
+        mPressure = String.format(" %s", mWeather.getPressure());
 
-        ListManager.loadImg(context, iv_weather_icon, weather.getIcon());
-        tv_city.setText(city);
-        tv_time.setText(time);
-        tv_date.setText(date);
-        tv_temperature.setText(temperature);
-        tv_description.setText(description);
-        tv_wind_deg.setText(wind_deg);
-        tv_wind_speed.setText(wind_speed);
-        tv_humidity.setText(humidity);
-        tv_pressure.setText(pressure);
+        ListManager.loadImg(context, mWeatherIcon, mWeather.getIcon());
+        mTvCity.setText(mCity);
+        mTvTime.setText(mTime);
+        mTvDate.setText(mDate);
+        mTvTemperature.setText(mTemperature);
+        mTvDescription.setText(mDescription);
+        mTvWindDeg.setText(mWindDeg);
+        mTvWindSpeed.setText(mWindSpeed);
+        mTtvHumidity.setText(mHumidity);
+        mTvPressure.setText(mPressure);
     }
 }

@@ -16,24 +16,24 @@ import ua.marinovskiy.weatherapp.managers.ListManager;
 
 public class MyListViewAdapter extends BaseAdapter {
 
-    Context context;
-    List<Weather> weatherList;
-    LayoutInflater layoutInflater;
+    Context mContext;
+    List<Weather> mWeatherList;
+    LayoutInflater mLayoutInflater;
 
     public MyListViewAdapter(Context context, List<Weather> weatherList) {
-        this.context = context;
-        this.weatherList = weatherList;
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mContext = context;
+        mWeatherList = weatherList;
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return weatherList.size();
+        return mWeatherList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return weatherList.get(position);
+        return mWeatherList.get(position);
     }
 
     @Override
@@ -44,27 +44,27 @@ public class MyListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_view_item, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.list_view_item, parent, false);
         }
 
         Weather weather = (Weather) getItem(position);
 
-        String time = ListManager.getTextTime(weather.getDateTime());
-        String date = ListManager.getTextDate(weather.getDateTime());
-        String temperature = ListManager.formatTemp(context, weather.getTemperature());
-        String condition = weather.getCondition();
+        String mTime = ListManager.getTextTime(weather.getDateTime());
+        String mDate = ListManager.getTextDate(weather.getDateTime());
+        String mTemperature = ListManager.formatTemp(mContext, weather.getTemperature());
+        String mCondition = weather.getCondition();
 
-        TextView tv_temperature = (TextView) convertView.findViewById(R.id.lv_temperature);
-        TextView tv_condition = (TextView) convertView.findViewById(R.id.lv_condition);
-        TextView tv_date = (TextView) convertView.findViewById(R.id.lv_date_of_weather);
-        TextView tv_time = (TextView) convertView.findViewById(R.id.lv_time_of_weather);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.lv_icon);
+        TextView mTvTemperature = (TextView) convertView.findViewById(R.id.lv_temperature);
+        TextView mTvCondition = (TextView) convertView.findViewById(R.id.lv_condition);
+        TextView mTvDate = (TextView) convertView.findViewById(R.id.lv_date_of_weather);
+        TextView mTvTime = (TextView) convertView.findViewById(R.id.lv_time_of_weather);
+        ImageView mIvIcon = (ImageView) convertView.findViewById(R.id.lv_icon);
 
-        tv_temperature.setText(temperature);
-        tv_condition.setText(condition);
-        tv_time.setText(time);
-        tv_date.setText(date);
-        ListManager.loadImg(context, imageView, weather.getIcon());
+        mTvTemperature.setText(mTemperature);
+        mTvCondition.setText(mCondition);
+        mTvTime.setText(mTime);
+        mTvDate.setText(mDate);
+        ListManager.loadImg(mContext, mIvIcon, weather.getIcon());
 
         return convertView;
     }

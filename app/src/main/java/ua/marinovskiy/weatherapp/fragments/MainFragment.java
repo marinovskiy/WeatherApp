@@ -31,12 +31,18 @@ import ua.marinovskiy.weatherapp.managers.ListManager;
 
 public class MainFragment extends ListFragment {
 
-    TextView header;
-    Context context;
-    String url_part_1, url_part_2, city;
-    SharedPreferences preferences;
-    MyListViewAdapter listViewAdapter;
     public static List<Weather> myWeatherList;
+
+    Context mContext;
+    TextView mHeader;
+
+    String mUrlPart1;
+    String mUrlPart2;
+    String mCity;
+
+    SharedPreferences mPreferences;
+    MyListViewAdapter mListViewAdapter;
+    DetailsFragment mDetailsFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,37 +52,37 @@ public class MainFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        header = (TextView) view.findViewById(R.id.header);
-        header.setVisibility(View.INVISIBLE);
+        mHeader = (TextView) view.findViewById(R.id.header);
+        mHeader.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        context = getActivity().getApplicationContext();
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        city = preferences.getString("city", "");
+        mContext = getActivity().getApplicationContext();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mCity = mPreferences.getString("mCity", "");
 
-        if (!ListManager.checkInternetConnection(context)) {
-            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-        } else if (!city.equals("")) {
-            url_part_1 = context.getResources().getString(R.string.url_part_1);
-            url_part_2 = context.getResources().getString(R.string.url_part_2);
+        if (!ListManager.checkInternetConnection(mContext)) {
+            Toast.makeText(mContext, "No internet connection", Toast.LENGTH_SHORT).show();
+        } else if (!mCity.equals("")) {
+            mUrlPart1 = mContext.getResources().getString(R.string.url_part_1);
+            mUrlPart2 = mContext.getResources().getString(R.string.url_part_2);
             try {
-                myWeatherList = new JSONtask().
-                        execute(String.format("%s%s%s", url_part_1, city, url_part_2)).get();
+                myWeatherList = new JSONTask().
+                        execute(String.format("%s%s%s", mUrlPart1, mCity, mUrlPart2)).get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
 
-            header.setVisibility(View.VISIBLE);
-            header.setText(String.format("Weather in %s", city));
+            mHeader.setVisibility(View.VISIBLE);
+            mHeader.setText(String.format("Weather in %s", mCity));
 
-            listViewAdapter = new MyListViewAdapter(getActivity().getApplicationContext(), myWeatherList);
-            setListAdapter(listViewAdapter);
+            mListViewAdapter = new MyListViewAdapter(getActivity().getApplicationContext(), myWeatherList);
+            setListAdapter(mListViewAdapter);
 
             getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -88,18 +94,18 @@ public class MainFragment extends ListFragment {
     }
 
     void onItemSelected(int position) {
-        DetailsFragment detailsFragment = (DetailsFragment) getFragmentManager().
+        mDetailsFragment = (DetailsFragment) getFragmentManager().
                 findFragmentById(R.id.fragment_weather_details);
-        if (detailsFragment == null) {
-            Intent intent = new Intent(context, DetailsActivity.class);
+        if ((mDetailsFragment == null) || (!mDetailsFragment.isInLayout())) {
+            Intent intent = new Intent(mContext, DetailsActivity.class);
             intent.putExtra("position", position);
             startActivity(intent);
         } else {
-            detailsFragment.updateContent(position);
+            mDetailsFragment.updateContent(mContext, position);
         }
     }
 
-    private class JSONtask extends AsyncTask<String, Void, List<Weather>> {
+    private class JSONTask extends AsyncTask<String, Void, List<Weather>> {
 
         List<Weather> weatherList;
         JSONManager jsonManager;

@@ -11,24 +11,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.dialogs.DialogFirstRun;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    SharedPreferences pref_settings, preferences;
+    SharedPreferences mPrefSettings;
+    SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        pref_settings = PreferenceManager.getDefaultSharedPreferences(this);
-        pref_settings.registerOnSharedPreferenceChangeListener(this);
+        mPrefSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        mPrefSettings.registerOnSharedPreferenceChangeListener(this);
 
-        preferences = getPreferences(MODE_PRIVATE);
+        mPreferences = getPreferences(MODE_PRIVATE);
 
         if (Build.VERSION.SDK_INT >= 21) {
             findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     protected void onResume() {
         super.onResume();
-        if (preferences.getBoolean("no_city", true)) {
+        if (mPreferences.getBoolean("no_city", true)) {
             DialogFirstRun first_run_dialog = new DialogFirstRun();
             first_run_dialog.setCancelable(false);
             first_run_dialog.show(getSupportFragmentManager(), "");
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         recreate();
         if (!key.equals("")) {
-            preferences.edit().putBoolean("no_city", false).apply();
+            mPreferences.edit().putBoolean("no_city", false).apply();
         }
     }
 
