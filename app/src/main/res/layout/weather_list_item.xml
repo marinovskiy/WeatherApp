@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lv_time_of_weather"
+            android:id="@+id/list_time_of_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_bottom_list_top_item"
@@ -21,7 +21,7 @@
             android:textSize="@dimen/main_text_size" />
 
         <TextView
-            android:id="@+id/lv_date_of_weather"
+            android:id="@+id/list_date_of_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_bottom_list_bottom_item"
@@ -38,7 +38,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lv_condition"
+            android:id="@+id/list_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_bottom_list_top_item"
@@ -47,7 +47,7 @@
             android:textSize="@dimen/main_text_size" />
 
         <TextView
-            android:id="@+id/lv_temperature"
+            android:id="@+id/list_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_bottom_list_bottom_item"
@@ -65,7 +65,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/lv_icon"
+            android:id="@+id/list_icon"
             android:layout_width="@dimen/icon_size_list_item"
             android:layout_height="@dimen/icon_size_list_item"
             android:layout_gravity="right" />

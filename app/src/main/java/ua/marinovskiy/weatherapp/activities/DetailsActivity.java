@@ -12,9 +12,9 @@ import ua.marinovskiy.weatherapp.fragments.DetailsFragment;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    int position;
-    Bundle bundle;
-    DetailsFragment detailsFragment;
+    private int mPosition;
+    private Bundle mArgs;
+    private DetailsFragment mDetailsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +25,23 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        // remove toolbar's shadow if current version LOLLIPOP or above
         if (Build.VERSION.SDK_INT >= 21) {
             findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
         }
 
-        position = getIntent().getIntExtra("position", 0);
-        bundle = new Bundle();
-        bundle.putInt("position", position);
-        detailsFragment = new DetailsFragment();
-        detailsFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_weather_details, detailsFragment).commit();
+        mPosition = getIntent().getIntExtra("position", 0);
+        mArgs = new Bundle();
+        mArgs.putInt("position", mPosition);
+        mDetailsFragment = new DetailsFragment();
+        mDetailsFragment.setArguments(mArgs);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_weather_details, mDetailsFragment).commit();
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case android.R.id.home:
                 onBackPressed();

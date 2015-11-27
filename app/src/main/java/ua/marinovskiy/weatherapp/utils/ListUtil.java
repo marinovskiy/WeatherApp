@@ -1,4 +1,4 @@
-package ua.marinovskiy.weatherapp.managers;
+package ua.marinovskiy.weatherapp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class ListManager {
+public class ListUtil {
 
     public static boolean checkInternetConnection(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -32,14 +32,14 @@ public class ListManager {
         return date;
     }
 
-    public static String getTextTime(String txtDate) {
+    public static String formatTime(String txtDate) {
         String time;
         DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
         time = dateFormat.format(getWeatherDate(txtDate));
         return time;
     }
 
-    public static String getTextDate(String txtDate) {
+    public static String formatDate(String txtDate) {
         String date;
         DateFormat dateFormat = new SimpleDateFormat("d MMM, EEE", Locale.ENGLISH);
         date = dateFormat.format(getWeatherDate(txtDate));

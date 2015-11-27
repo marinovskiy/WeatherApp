@@ -15,35 +15,35 @@ import android.widget.TextView;
 import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.activities.DetailsActivity;
 import ua.marinovskiy.weatherapp.entities.Weather;
-import ua.marinovskiy.weatherapp.managers.ListManager;
+import ua.marinovskiy.weatherapp.utils.ListUtil;
 
 public class DetailsFragment extends Fragment {
 
-    int mPosition;
-    Context mContext;
-    Weather mWeather;
-    ImageView mWeatherIcon;
-    SharedPreferences mPreferences;
+    private int mPosition;
+    private Context mContext;
+    private Weather mWeather;
+    private SharedPreferences mPreferences;
 
-    String mCity;
-    String mTime;
-    String mDate;
-    String mTemperature;
-    String mDescription;
-    String mWindDeg;
-    String mWindSpeed;
-    String mHumidity;
-    String mPressure;
+    private String mCity;
+    private String mTime;
+    private String mDate;
+    private String mTemperature;
+    private String mDescription;
+    private String mWindDeg;
+    private String mWindSpeed;
+    private String mHumidity;
+    private String mPressure;
 
-    TextView mTvCity;
-    TextView mTvTime;
-    TextView mTvDate;
-    TextView mTvTemperature;
-    TextView mTvDescription;
-    TextView mTvWindDeg;
-    TextView mTvWindSpeed;
-    TextView mTtvHumidity;
-    TextView mTvPressure;
+    private TextView mTvCity;
+    private TextView mTvTime;
+    private TextView mTvDate;
+    private TextView mTvTemperature;
+    private TextView mTvDescription;
+    private TextView mTvWindDeg;
+    private TextView mTvWindSpeed;
+    private TextView mTtvHumidity;
+    private TextView mTvPressure;
+    private ImageView mWeatherIcon;
 
     @Nullable
     @Override
@@ -54,7 +54,6 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mWeatherIcon = (ImageView) view.findViewById(R.id.details_icon);
         mTvCity = (TextView) view.findViewById(R.id.details_city);
         mTvTime = (TextView) view.findViewById(R.id.details_time);
         mTvDate = (TextView) view.findViewById(R.id.details_date);
@@ -64,6 +63,7 @@ public class DetailsFragment extends Fragment {
         mTvWindSpeed = (TextView) view.findViewById(R.id.details_wind_speed_value);
         mTtvHumidity = (TextView) view.findViewById(R.id.details_humidity_value);
         mTvPressure = (TextView) view.findViewById(R.id.details_pressure_value);
+        mWeatherIcon = (ImageView) view.findViewById(R.id.details_icon);
     }
 
     @Override
@@ -81,20 +81,20 @@ public class DetailsFragment extends Fragment {
     }
 
     void updateContent(Context context, int position) {
-        mWeather = MainFragment.myWeatherList.get(position);
+        mWeather = MainFragment.sWeatherList.get(position);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mCity = mPreferences.getString("mCity", "");
-        mTime = String.format(" %s", ListManager.getTextTime(mWeather.getDateTime()));
-        mDate = String.format(" %s", ListManager.getTextDate(mWeather.getDateTime()));
-        mTemperature = String.format(" %s", ListManager.formatTemp(context, mWeather.getTemperature()));
+        mTime = String.format(" %s", ListUtil.formatTime(mWeather.getDateTime()));
+        mDate = String.format(" %s", ListUtil.formatDate(mWeather.getDateTime()));
+        mTemperature = String.format(" %s", ListUtil.formatTemp(context, mWeather.getTemperature()));
         mDescription = String.format(" %s", mWeather.getDescription());
         mWindDeg = String.format(" %s", mWeather.getWindDeg());
         mWindSpeed = String.format(" %s %s", mWeather.getWindSpeed(), "m/s");
         mHumidity = String.format(" %s", mWeather.getHumidity());
         mPressure = String.format(" %s", mWeather.getPressure());
 
-        ListManager.loadImg(context, mWeatherIcon, mWeather.getIcon());
+        ListUtil.loadImg(context, mWeatherIcon, mWeather.getIcon());
         mTvCity.setText(mCity);
         mTvTime.setText(mTime);
         mTvDate.setText(mDate);

@@ -1,4 +1,4 @@
-package ua.marinovskiy.weatherapp.managers;
+package ua.marinovskiy.weatherapp.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,9 +9,10 @@ import java.util.List;
 
 import ua.marinovskiy.weatherapp.entities.Weather;
 
-public class JSONManager {
+// make list from json
+public class JSONUtil {
 
-    static String[] mas = {"North", "NorthEast", "East", "SouthEast", "South", "SouthWest", "West", "NorthWest"};
+    private static String[] sWindDirections = {"North", "NorthEast", "East", "SouthEast", "South", "SouthWest", "West", "NorthWest"};
 
     public static List<Weather> parse(String json) {
         List<Weather> weatherList = new ArrayList<>();
@@ -43,7 +44,7 @@ public class JSONManager {
     }
 
     public static String getWindDeg(double windDegAngle) {
-        String windDeg = mas[(int) windDegAngle / 45];
+        String windDeg = sWindDirections[(int) windDegAngle / 45];
         return windDeg;
     }
 

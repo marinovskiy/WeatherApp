@@ -19,31 +19,33 @@ import ua.marinovskiy.weatherapp.dialogs.DialogFirstRun;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    SharedPreferences mPrefSettings;
-    SharedPreferences mPreferences;
+    private SharedPreferences mFirstRun;
+    private SharedPreferences mPrefSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+
+        // remove toolbar's shadow if current version LOLLIPOP or above
+        if (Build.VERSION.SDK_INT >= 21) {
+            findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
+        }
 
         mPrefSettings = PreferenceManager.getDefaultSharedPreferences(this);
         mPrefSettings.registerOnSharedPreferenceChangeListener(this);
 
-        mPreferences = getPreferences(MODE_PRIVATE);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
-        }
+        mFirstRun = getPreferences(MODE_PRIVATE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mPreferences.getBoolean("no_city", true)) {
+        if (mFirstRun.getBoolean("no_city", true)) {
             DialogFirstRun first_run_dialog = new DialogFirstRun();
             first_run_dialog.setCancelable(false);
             first_run_dialog.show(getSupportFragmentManager(), "");
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         recreate();
         if (!key.equals("")) {
-            mPreferences.edit().putBoolean("no_city", false).apply();
+            mFirstRun.edit().putBoolean("no_city", false).apply();
         }
     }
 
@@ -64,11 +66,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case R.id.action_settings:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
