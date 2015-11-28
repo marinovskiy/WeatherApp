@@ -56,7 +56,7 @@ public class DetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Context mContext = getActivity().getApplicationContext();
-        
+
         SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         String mCity = mPreferences.getString("city", "");
         mTvCity.setText(mCity);
@@ -73,7 +73,7 @@ public class DetailsFragment extends Fragment {
         Weather mWeather = MainFragment.sWeatherList.get(position);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String city = preferences.getString("mCity", "");
+        String city = preferences.getString("city", "");
         String time = String.format(" %s", mWeather.getTime());
         String date = String.format(" %s", mWeather.getDate());
         String temperature = String.format(" %s", ListUtil.formatTemp(context, mWeather.getTemperature()));
