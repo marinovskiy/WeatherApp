@@ -56,6 +56,10 @@ public class DetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Context mContext = getActivity().getApplicationContext();
+        
+        SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String mCity = mPreferences.getString("city", "");
+        mTvCity.setText(mCity);
 
         if (getActivity() instanceof DetailsActivity) {
             int mPosition = getArguments().getInt("position");

@@ -12,6 +12,8 @@ import ua.marinovskiy.weatherapp.fragments.DetailsFragment;
 
 public class DetailsActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
