@@ -81,8 +81,7 @@ public class ListUtil {
     public static String getWindDeg(double windDegAngle) {
         String[] sWindDirections = {"North", "NorthEast", "East", "SouthEast", "South",
                 "SouthWest", "West", "NorthWest"};
-        String windDeg = sWindDirections[(int) windDegAngle / 45];
-        return windDeg;
+        return sWindDirections[(int) windDegAngle / 45];
     }
 
 }

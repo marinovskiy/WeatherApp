@@ -2,15 +2,11 @@ package ua.marinovskiy.weatherapp.utils.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.entities.Weather;
 
 public class DatabaseWriter extends AsyncTask<Void, Void, Void> {
