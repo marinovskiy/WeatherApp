@@ -14,4 +14,13 @@
     <string name="details_label_description">Description:</string>
     <string name="details_label_temperature">Temperature:</string>
 
+    <!--list-->
+    <string name="list_label_no_weather">No weather;(</string>
+
+    <!--dialogs-->
+    <string name="dialog_first_run_title">Set city</string>
+    <string name="dialog_first_run_negative">Cancel</string>
+    <string name="dialog_first_run_positive">Go</string>
+    <string name="dialog_first_run_message">You have not set city in settings. Let\'s do it. Go to settings?</string>
+
 </resources>

@@ -12,10 +12,6 @@ import ua.marinovskiy.weatherapp.fragments.DetailsFragment;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private int mPosition;
-    private Bundle mArgs;
-    private DetailsFragment mDetailsFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +26,13 @@ public class DetailsActivity extends AppCompatActivity {
             findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
         }
 
-        mPosition = getIntent().getIntExtra("position", 0);
-        mArgs = new Bundle();
+        int mPosition = getIntent().getIntExtra("position", 0);
+        Bundle mArgs = new Bundle();
         mArgs.putInt("position", mPosition);
-        mDetailsFragment = new DetailsFragment();
+        DetailsFragment mDetailsFragment = new DetailsFragment();
         mDetailsFragment.setArguments(mArgs);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_weather_details, mDetailsFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_weather_details,
+                mDetailsFragment).commit();
 
     }
 

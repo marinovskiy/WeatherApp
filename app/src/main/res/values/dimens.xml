@@ -16,6 +16,7 @@
     <dimen name="padding_bottom_list_bottom_item">3dp</dimen>
     <dimen name="padding_top_list_top_item">3dp</dimen>
     <dimen name="margin_left_right_list">12dp</dimen>
+    <dimen name="margin_top_empty_list">10dp</dimen>
     <dimen name="icon_size_list_item">50dp</dimen>
 
     <!--details item-->

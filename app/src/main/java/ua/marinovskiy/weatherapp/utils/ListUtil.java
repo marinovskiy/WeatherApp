@@ -16,8 +16,9 @@ import java.util.Locale;
 
 public class ListUtil {
 
-    public static boolean checkInternetConnection(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager.getActiveNetworkInfo() != null;
     }
 
@@ -75,6 +76,13 @@ public class ListUtil {
         Picasso.with(context)
                 .load(iconUrl)
                 .into(imageView);
+    }
+
+    public static String getWindDeg(double windDegAngle) {
+        String[] sWindDirections = {"North", "NorthEast", "East", "SouthEast", "South",
+                "SouthWest", "West", "NorthWest"};
+        String windDeg = sWindDirections[(int) windDegAngle / 45];
+        return windDeg;
     }
 
 }

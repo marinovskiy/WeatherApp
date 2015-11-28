@@ -19,21 +19,6 @@ import ua.marinovskiy.weatherapp.utils.ListUtil;
 
 public class DetailsFragment extends Fragment {
 
-    private int mPosition;
-    private Context mContext;
-    private Weather mWeather;
-    private SharedPreferences mPreferences;
-
-    private String mCity;
-    private String mTime;
-    private String mDate;
-    private String mTemperature;
-    private String mDescription;
-    private String mWindDeg;
-    private String mWindSpeed;
-    private String mHumidity;
-    private String mPressure;
-
     private TextView mTvCity;
     private TextView mTvTime;
     private TextView mTvDate;
@@ -70,10 +55,10 @@ public class DetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mContext = getActivity().getApplicationContext();
+        Context mContext = getActivity().getApplicationContext();
 
         if (getActivity() instanceof DetailsActivity) {
-            mPosition = getArguments().getInt("position");
+            int mPosition = getArguments().getInt("position");
             updateContent(mContext, mPosition);
         } else {
             updateContent(mContext, 0);
@@ -81,28 +66,28 @@ public class DetailsFragment extends Fragment {
     }
 
     void updateContent(Context context, int position) {
-        mWeather = MainFragment.sWeatherList.get(position);
+        Weather mWeather = MainFragment.sWeatherList.get(position);
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        mCity = mPreferences.getString("mCity", "");
-        mTime = String.format(" %s", ListUtil.formatTime(mWeather.getDateTime()));
-        mDate = String.format(" %s", ListUtil.formatDate(mWeather.getDateTime()));
-        mTemperature = String.format(" %s", ListUtil.formatTemp(context, mWeather.getTemperature()));
-        mDescription = String.format(" %s", mWeather.getDescription());
-        mWindDeg = String.format(" %s", mWeather.getWindDeg());
-        mWindSpeed = String.format(" %s %s", mWeather.getWindSpeed(), "m/s");
-        mHumidity = String.format(" %s", mWeather.getHumidity());
-        mPressure = String.format(" %s", mWeather.getPressure());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String city = preferences.getString("mCity", "");
+        String time = String.format(" %s", mWeather.getTime());
+        String date = String.format(" %s", mWeather.getDate());
+        String temperature = String.format(" %s", ListUtil.formatTemp(context, mWeather.getTemperature()));
+        String description = String.format(" %s", mWeather.getDescription());
+        String windDeg = String.format(" %s", mWeather.getWindDeg());
+        String windSpeed = String.format(" %s %s", mWeather.getWindSpeed(), "m/s");
+        String humidity = String.format(" %s", mWeather.getHumidity());
+        String pressure = String.format(" %s", mWeather.getPressure());
 
         ListUtil.loadImg(context, mWeatherIcon, mWeather.getIcon());
-        mTvCity.setText(mCity);
-        mTvTime.setText(mTime);
-        mTvDate.setText(mDate);
-        mTvTemperature.setText(mTemperature);
-        mTvDescription.setText(mDescription);
-        mTvWindDeg.setText(mWindDeg);
-        mTvWindSpeed.setText(mWindSpeed);
-        mTtvHumidity.setText(mHumidity);
-        mTvPressure.setText(mPressure);
+        mTvCity.setText(city);
+        mTvTime.setText(time);
+        mTvDate.setText(date);
+        mTvTemperature.setText(temperature);
+        mTvDescription.setText(description);
+        mTvWindDeg.setText(windDeg);
+        mTvWindSpeed.setText(windSpeed);
+        mTtvHumidity.setText(humidity);
+        mTvPressure.setText(pressure);
     }
 }

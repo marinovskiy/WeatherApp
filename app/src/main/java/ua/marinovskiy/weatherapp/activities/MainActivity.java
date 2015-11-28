@@ -16,11 +16,12 @@ import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.dialogs.DialogFirstRun;
+import ua.marinovskiy.weatherapp.fragments.MainFragment;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private SharedPreferences mFirstRun;
-    private SharedPreferences mPrefSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +37,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
         }
 
-        mPrefSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences mPrefSettings = PreferenceManager.getDefaultSharedPreferences(this);
         mPrefSettings.registerOnSharedPreferenceChangeListener(this);
-
-        mFirstRun = getPreferences(MODE_PRIVATE);
+        String mCity = mPrefSettings.getString("city", "");
+        toolbar.setTitle(mCity);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mFirstRun = getPreferences(MODE_PRIVATE);
         if (mFirstRun.getBoolean("no_city", true)) {
             DialogFirstRun first_run_dialog = new DialogFirstRun();
             first_run_dialog.setCancelable(false);
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_refresh:
+                MainFragment.loadOrRefresh();
+                return true;
             case R.id.action_settings:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);

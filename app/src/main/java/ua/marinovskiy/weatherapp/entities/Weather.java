@@ -1,8 +1,12 @@
 package ua.marinovskiy.weatherapp.entities;
 
-public class Weather {
+import io.realm.RealmObject;
 
-    private String dateTime;
+public class Weather extends RealmObject {
+
+    private String time;
+
+    private String date;
 
     private String icon;
 
@@ -20,12 +24,20 @@ public class Weather {
 
     private String pressure;
 
-    public String getDateTime() {
-        return dateTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getIcon() {
@@ -44,16 +56,16 @@ public class Weather {
         this.temperature = temperature;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public String getCondition() {
         return condition;
     }
 
     public void setCondition(String condition) {
         this.condition = condition;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
