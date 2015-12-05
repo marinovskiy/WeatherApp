@@ -22,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
         // remove toolbar's shadow if current version LOLLIPOP or above
         if (Build.VERSION.SDK_INT >= 21) {
             findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
+            getSupportActionBar().setElevation(4);
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

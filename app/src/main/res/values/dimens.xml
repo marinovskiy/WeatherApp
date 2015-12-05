@@ -4,26 +4,33 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!--text sizes-->
-    <dimen name="main_text_size">14sp</dimen>
-    <dimen name="details_text_title_size">20sp</dimen>
-    <dimen name="details_text_size">16sp</dimen>
+    <dimen name="font_size_list_text">14sp</dimen>
+    <dimen name="font_size_details_text">18sp</dimen>
 
     <!--toolbar-->
     <dimen name="toolbar_shadow_height">3dp</dimen>
 
-    <!--list items-->
-    <dimen name="padding_bottom_list_top_item">5dp</dimen>
-    <dimen name="padding_bottom_list_bottom_item">3dp</dimen>
-    <dimen name="padding_top_list_top_item">3dp</dimen>
-    <dimen name="margin_left_right_list">12dp</dimen>
-    <dimen name="margin_top_empty_list">10dp</dimen>
-    <dimen name="icon_size_list_item">50dp</dimen>
+    <!--recycler view-->
+    <dimen name="margin_bottom_recycler_view">4dp</dimen>
+    <dimen name="margin_top_recycler_view">4dp</dimen>
 
-    <!--details item-->
-    <dimen name="margin_top_details_item">10dp</dimen>
-    <dimen name="icon_size_details_item">60dp</dimen>
-    <dimen name="margin_left_icon">10dp</dimen>
-    <dimen name="margin_left_details">15dp</dimen>
+    <!--recycler view items-->
+    <dimen name="corner_radius_card_view">4dp</dimen>
+    <dimen name="padding_layout_recycler_item">5dp</dimen>
+    <dimen name="padding_top_recycler_bottom_text">8dp</dimen>
+    <dimen name="size_recycler_image_weather_state">50dp</dimen>
 
+    <!--details-->
+    <dimen name="margin_top_details_layout">15dp</dimen>
+    <dimen name="margin_left_details_layout">25dp</dimen>
+    <dimen name="margin_right_details_layout">25dp</dimen>
+
+    <dimen name="margin_left_details_text_info">20dp</dimen>
+    <dimen name="margin_top_details_text_info">7dp</dimen>
+    <dimen name="margin_top_details_text_title">15dp</dimen>
+    <dimen name="margin_top_details_text_description">2dp</dimen>
+    <dimen name="margin_left_details_image_thermometer">2dp</dimen>
+    <dimen name="margin_top_details_image_thermometer">2dp</dimen>
+    <dimen name="margin_left_details_text_temperature">4dp</dimen>
 
 </resources>

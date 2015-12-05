@@ -1,4 +1,4 @@
-package ua.marinovskiy.weatherapp.utils.database;
+package ua.marinovskiy.weatherapp.utils.db;
 
 import android.content.Context;
 import android.os.AsyncTask;

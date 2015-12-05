@@ -1,8 +1,9 @@
-package ua.marinovskiy.weatherapp.utils.json;
+package ua.marinovskiy.weatherapp.utils.loaders;
 
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 
 import ua.marinovskiy.weatherapp.entities.Weather;
+import ua.marinovskiy.weatherapp.utils.JSONUtil;
 
 // load json from server with API
 public class JSONLoader extends AsyncTask<String, Void, List<Weather>> {
@@ -37,11 +39,12 @@ public class JSONLoader extends AsyncTask<String, Void, List<Weather>> {
             mResultJson = buffer.toString();
             inputStream.close();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return JSONUtil.parse(mResultJson);
     }
+
 }
 

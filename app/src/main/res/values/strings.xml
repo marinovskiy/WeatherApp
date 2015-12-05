@@ -2,25 +2,35 @@
     <string name="app_name">Weather App</string>
     <string name="action_settings">Settings</string>
 
-    <!--urls-->
-    <string name="url_part_1">http://api.openweathermap.org/data/2.5/forecast?q=</string>
-    <string name="url_part_2">,us&amp;mode=json&amp;appid=2de143494c0b295cca9337e1e96b00e0</string>
+    <!--toolbar title-->
+    <string name="toolbar_titile_template">Weather in</string>
 
-    <!--labels-->
-    <string name="details_label_pressure">Pressure:</string>
-    <string name="details_label_humidity">Humidity:</string>
-    <string name="details_label_wind_speed">Wind speed:</string>
-    <string name="details_label_wind_deg">Wind deg:</string>
-    <string name="details_label_description">Description:</string>
-    <string name="details_label_temperature">Temperature:</string>
+    <!--urls-->
+    <string name="urlPart1">http://api.openweathermap.org/data/2.5/forecast?q=</string>
+    <string name="urlPart2">,us&amp;mode=json&amp;appid=2de143494c0b295cca9337e1e96b00e0</string>
+
+    <!--details labels-->
+    <string name="wind_label">Wind</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="pressure_label">Pressure</string>
+    <string name="date_label">Date &amp; time</string>
+    <string name="weather_label">Weather</string>
 
     <!--list-->
-    <string name="list_label_no_weather">No weather;(</string>
+    <string name="list_empty_data">No weather ;(</string>
 
     <!--dialogs-->
     <string name="dialog_first_run_title">Set city</string>
-    <string name="dialog_first_run_negative">Cancel</string>
-    <string name="dialog_first_run_positive">Go</string>
-    <string name="dialog_first_run_message">You have not set city in settings. Let\'s do it. Go to settings?</string>
+    <string name="dialog_first_run_neg_btn">Cancel</string>
+    <string name="dialog_first_run_pos_btn">Go</string>
+    <string name="dialog_first_run_msg">You have not set city in settings. Let\'s do it. Go to settings?</string>
+
+    <!--descriptions of images-->
+    <string name="thermometer_icon">Thermometer icon</string>
+    <string name="details_icon">Details icon</string>
+    <string name="weather_icon">weather icon</string>
+
+    <!--fonts-->
+    <string name="font_roboto_light">fonts/Roboto-Light.ttf</string>
 
 </resources>

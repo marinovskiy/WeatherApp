@@ -1,4 +1,4 @@
-package ua.marinovskiy.weatherapp.utils.json;
+package ua.marinovskiy.weatherapp.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

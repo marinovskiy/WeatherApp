@@ -1,9 +1,7 @@
 package ua.marinovskiy.weatherapp.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,16 +17,16 @@ import ua.marinovskiy.weatherapp.utils.ListUtil;
 
 public class DetailsFragment extends Fragment {
 
-    private TextView mTvCity;
-    private TextView mTvTime;
-    private TextView mTvDate;
+    private Context mContext;
+
+    private TextView mTvDateTime;
     private TextView mTvTemperature;
     private TextView mTvDescription;
     private TextView mTvWindDeg;
     private TextView mTvWindSpeed;
     private TextView mTtvHumidity;
     private TextView mTvPressure;
-    private ImageView mWeatherIcon;
+    private ImageView mIvIcon;
 
     @Nullable
     @Override
@@ -39,27 +37,21 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTvCity = (TextView) view.findViewById(R.id.details_city);
-        mTvTime = (TextView) view.findViewById(R.id.details_time);
-        mTvDate = (TextView) view.findViewById(R.id.details_date);
-        mTvTemperature = (TextView) view.findViewById(R.id.details_temperature_value);
-        mTvDescription = (TextView) view.findViewById(R.id.details_description_value);
-        mTvWindDeg = (TextView) view.findViewById(R.id.details_wind_deg_value);
-        mTvWindSpeed = (TextView) view.findViewById(R.id.details_wind_speed_value);
-        mTtvHumidity = (TextView) view.findViewById(R.id.details_humidity_value);
-        mTvPressure = (TextView) view.findViewById(R.id.details_pressure_value);
-        mWeatherIcon = (ImageView) view.findViewById(R.id.details_icon);
+        mIvIcon = (ImageView) view.findViewById(R.id.details_icon_weather_state);
+        mTvDateTime = (TextView) view.findViewById(R.id.details_date_time_tv);
+        mTvTemperature = (TextView) view.findViewById(R.id.details_temperature_tv);
+        mTvDescription = (TextView) view.findViewById(R.id.details_description_tv);
+        mTvWindDeg = (TextView) view.findViewById(R.id.details_wind_deg_tv);
+        mTvWindSpeed = (TextView) view.findViewById(R.id.details_wind_speed_tv);
+        mTtvHumidity = (TextView) view.findViewById(R.id.details_humidity_tv);
+        mTvPressure = (TextView) view.findViewById(R.id.details_pressure_tv);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Context mContext = getActivity().getApplicationContext();
-
-        SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String mCity = mPreferences.getString("city", "");
-        mTvCity.setText(mCity);
+        mContext = getActivity().getApplicationContext();
 
         if (getActivity() instanceof DetailsActivity) {
             int mPosition = getArguments().getInt("position");
@@ -70,23 +62,20 @@ public class DetailsFragment extends Fragment {
     }
 
     void updateContent(Context context, int position) {
+
         Weather mWeather = MainFragment.sWeatherList.get(position);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String city = preferences.getString("city", "");
-        String time = String.format(" %s", mWeather.getTime());
-        String date = String.format(" %s", mWeather.getDate());
-        String temperature = String.format(" %s", ListUtil.formatTemp(context, mWeather.getTemperature()));
-        String description = String.format(" %s", mWeather.getDescription());
-        String windDeg = String.format(" %s", mWeather.getWindDeg());
-        String windSpeed = String.format(" %s %s", mWeather.getWindSpeed(), "m/s");
-        String humidity = String.format(" %s", mWeather.getHumidity());
-        String pressure = String.format(" %s", mWeather.getPressure());
+        String iconId = mWeather.getIcon();
+        String dateTime = String.format("%s %s", mWeather.getTime(), mWeather.getDate());
+        String temperature = String.format("%s", ListUtil.formatTemp(context, mWeather.getTemperature()));
+        String description = String.format("%s", mWeather.getDescription());
+        String windDeg = String.format("%s", mWeather.getWindDeg());
+        String windSpeed = String.format("%s m/s", mWeather.getWindSpeed());
+        String humidity = String.format("%s %%", mWeather.getHumidity());
+        String pressure = String.format("%s hpa", mWeather.getPressure());
 
-        ListUtil.loadImg(context, mWeatherIcon, mWeather.getIcon());
-        mTvCity.setText(city);
-        mTvTime.setText(time);
-        mTvDate.setText(date);
+        ListUtil.loadImg(mContext, mIvIcon, iconId);
+        mTvDateTime.setText(dateTime);
         mTvTemperature.setText(temperature);
         mTvDescription.setText(description);
         mTvWindDeg.setText(windDeg);

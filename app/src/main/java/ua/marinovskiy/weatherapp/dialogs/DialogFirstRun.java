@@ -20,14 +20,14 @@ public class DialogFirstRun extends DialogFragment {
         dialog.setTitle(getActivity().getApplicationContext().
                 getString(R.string.dialog_first_run_title))
                 .setNegativeButton(getActivity().getApplicationContext().
-                        getString(R.string.dialog_first_run_negative), new DialogInterface.OnClickListener() {
+                        getString(R.string.dialog_first_run_neg_btn), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getActivity().finish();
                     }
                 })
                 .setPositiveButton(getActivity().getApplicationContext().
-                                getString(R.string.dialog_first_run_positive),
+                                getString(R.string.dialog_first_run_pos_btn),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -37,7 +37,7 @@ public class DialogFirstRun extends DialogFragment {
                             }
                         })
                 .setMessage(getActivity().getApplicationContext().
-                        getString(R.string.dialog_first_run_message));
+                        getString(R.string.dialog_first_run_msg));
         return dialog.create();
     }
 
