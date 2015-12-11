@@ -65,7 +65,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         String time = mWeatherRealmResults.get(position).getTime();
         String date = mWeatherRealmResults.get(position).getDate();
-        String temp = ListUtil.formatTemp(mContext, mWeatherRealmResults.get(position).getTemperature());
+        String temp = ListUtil.formatTemp(mContext,
+                mWeatherRealmResults.get(position).getTemperature());
         String description = mWeatherRealmResults.get(position).getDescription();
         String iconId = mWeatherRealmResults.get(position).getIcon();
 

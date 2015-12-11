@@ -1,4 +1,4 @@
-package ua.marinovskiy.weatherapp.utils.loaders;
+package ua.marinovskiy.weatherapp.loaders;
 
 import android.os.AsyncTask;
 
@@ -38,11 +38,9 @@ public class JSONLoader extends AsyncTask<String, Void, List<Weather>> {
 
             mResultJson = buffer.toString();
             inputStream.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return JSONUtil.parse(mResultJson);
     }
 

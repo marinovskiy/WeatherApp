@@ -1,7 +1,9 @@
 package ua.marinovskiy.weatherapp.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,7 +32,8 @@ public class DetailsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_details, container, false);
     }
 
@@ -50,7 +53,6 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         mContext = getActivity().getApplicationContext();
 
         if (getActivity() instanceof DetailsActivity) {
@@ -61,13 +63,14 @@ public class DetailsFragment extends Fragment {
         }
     }
 
-    void updateContent(Context context, int position) {
+    protected void updateContent(Context context, int position) {
 
-        Weather mWeather = MainFragment.sWeatherList.get(position);
+        Weather mWeather = MainFragment.sRealmResults.get(position);
 
         String iconId = mWeather.getIcon();
         String dateTime = String.format("%s %s", mWeather.getTime(), mWeather.getDate());
-        String temperature = String.format("%s", ListUtil.formatTemp(context, mWeather.getTemperature()));
+        String temperature = String.format("%s", ListUtil.formatTemp(context,
+                mWeather.getTemperature()));
         String description = String.format("%s", mWeather.getDescription());
         String windDeg = String.format("%s", mWeather.getWindDeg());
         String windSpeed = String.format("%s m/s", mWeather.getWindSpeed());

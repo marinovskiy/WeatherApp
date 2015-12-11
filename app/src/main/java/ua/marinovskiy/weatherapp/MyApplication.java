@@ -16,4 +16,5 @@ public class MyApplication extends Application {
         sFontPathLight = mContext.getResources().getString(R.string.font_roboto_light);
         sLightTypeface = Typeface.createFromAsset(mContext.getAssets(), sFontPathLight);
     }
+
 }

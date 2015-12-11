@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ua.marinovskiy.weatherapp">
+    package="ua.marinovskiy.weatherapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,10 +10,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +28,13 @@
             android:label="Settings"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <service android:name=".services.ReminderService" />
+        <service android:name=".services.UpdateService" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b77f77b940ea374ce7ca53f6b55e0dcd219e2094" />
+
     </application>
 
 </manifest>

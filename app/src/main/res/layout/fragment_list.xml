@@ -6,28 +6,28 @@
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view_empty_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:visibility="gone"
-        cardview:cardCornerRadius="4dp">
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/card_view_empty_data"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:visibility="gone"-->
+        <!--cardview:cardCornerRadius="4dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="7dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="7dp"
-            android:text="@string/list_empty_data"
-            android:textColor="@color/colorTextMain"
-            android:textSize="@dimen/font_size_list_text" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:paddingBottom="7dp"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:paddingRight="15dp"-->
+            <!--android:paddingTop="7dp"-->
+            <!--android:text="@string/list_empty_data"-->
+            <!--android:textColor="@color/colorTextMain"-->
+            <!--android:textSize="@dimen/font_size_list_text" />-->
 
-    </android.support.v7.widget.CardView>
+    <!--</android.support.v7.widget.CardView>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

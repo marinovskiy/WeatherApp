@@ -1,4 +1,4 @@
-package ua.marinovskiy.weatherapp.utils.db;
+package ua.marinovskiy.weatherapp.db;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -6,14 +6,13 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import ua.marinovskiy.weatherapp.entities.Weather;
+import ua.marinovskiy.weatherapp.utils.DataUtil;
 
 public class DatabaseWriter extends AsyncTask<Void, Void, Void> {
 
     private Context mContext;
     private List<Weather> mWeatherList;
-
 
     public DatabaseWriter(Context context, List<Weather> weatherList) {
         mContext = context;
@@ -23,15 +22,11 @@ public class DatabaseWriter extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
+        /** delete old data **/
+        DataUtil.deleteData(mContext);
+
         Realm mRealm = Realm.getInstance(mContext);
         mRealm.beginTransaction();
-
-        /** DELETE OLD DATA **/
-        RealmResults<Weather> realmResults = mRealm.where(Weather.class).findAll();
-        if (realmResults.size() != 0) {
-            realmResults.clear();
-        }
-
         for (int i = 0; i < mWeatherList.size(); i++) {
             Weather weather = new Weather();
             weather.setTime(mWeatherList.get(i).getTime());
