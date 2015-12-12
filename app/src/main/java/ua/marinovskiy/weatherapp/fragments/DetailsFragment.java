@@ -1,9 +1,7 @@
 package ua.marinovskiy.weatherapp.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.activities.DetailsActivity;
 import ua.marinovskiy.weatherapp.entities.Weather;
@@ -29,6 +29,9 @@ public class DetailsFragment extends Fragment {
     private TextView mTtvHumidity;
     private TextView mTvPressure;
     private ImageView mIvIcon;
+
+    private Realm mRealm;
+    private RealmResults<Weather> mRealmResults;
 
     @Nullable
     @Override
@@ -54,18 +57,27 @@ public class DetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity().getApplicationContext();
+        mRealm = Realm.getDefaultInstance();
+        mRealmResults = mRealm.where(Weather.class).findAll();
 
         if (getActivity() instanceof DetailsActivity) {
             int mPosition = getArguments().getInt("position");
             updateContent(mContext, mPosition);
         } else {
-            updateContent(mContext, 0);
+            if (mRealmResults.size() != 0)
+                updateContent(mContext, 0);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
     }
 
     protected void updateContent(Context context, int position) {
 
-        Weather mWeather = MainFragment.sRealmResults.get(position);
+        Weather mWeather = mRealmResults.get(position);
 
         String iconId = mWeather.getIcon();
         String dateTime = String.format("%s %s", mWeather.getTime(), mWeather.getDate());

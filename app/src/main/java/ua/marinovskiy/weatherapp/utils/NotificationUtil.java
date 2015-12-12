@@ -31,9 +31,11 @@ public class NotificationUtil {
                         .setSmallIcon(R.drawable.icon_update_notification)
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
                                 R.mipmap.ic_launcher))
-                        .setContentTitle("New forecast")
-                        .setContentText("Touch to view new forecast")
-                        .addAction(R.drawable.icon_refresh, "Update", updatePendingIntent);
+                        .setContentTitle(context.getString(R.string.notification_title))
+                        .setContentText(context.getString(R.string.notification_text))
+                        .addAction(R.drawable.icon_refresh,
+                                context.getString(R.string.notification_action),
+                                updatePendingIntent);
 
         PendingIntent notificationPendingIntent =
                 PendingIntent.getActivity(
@@ -50,7 +52,6 @@ public class NotificationUtil {
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIFICATION_ID, notification);
-        //builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
     }
 
 }

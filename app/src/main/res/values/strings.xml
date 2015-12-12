@@ -17,7 +17,7 @@
     <string name="weather_label">Weather</string>
 
     <!--list-->
-    <string name="list_empty_data">No weather ;(</string>
+    <string name="list_empty_data">No weather</string>
 
     <!--dialogs-->
     <string name="dialog_first_run_title">Set city</string>
@@ -32,5 +32,13 @@
 
     <!--fonts-->
     <string name="font_roboto_light">fonts/Roboto-Light.ttf</string>
+
+    <!--toasts-->
+    <string name="toast_no_internet_connection">No internet connection</string>
+
+    <!--notifications-->
+    <string name="notification_title">New forecast</string>
+    <string name="notification_text">Touch to view new forecast</string>
+    <string name="notification_action">Update</string>
 
 </resources>

@@ -3,7 +3,14 @@ package ua.marinovskiy.weatherapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -23,17 +30,22 @@ public class DataUtil {
         String mUrlPart2 = context.getResources().getString(R.string.urlPart2);
         String mUrl = String.format("%s%s%s", mUrlPart1, mCity, mUrlPart2);
 
-        try {
-            /** get new data from JSON **/
-            List<Weather> weatherList = new JSONLoader().execute(mUrl).get();
-            if (!weatherList.isEmpty()) {
-                /** write new data into database **/
-                new DatabaseWriter(context, weatherList).execute().get();
-            } else {
-                deleteData(context);
+        if (ListUtil.isConnected(context)) {
+            try {
+                /** get new data from JSON **/
+                List<Weather> weatherList = new JSONLoader().execute(mUrl).get();
+                if (!weatherList.isEmpty()) {
+                    /** write new data into database **/
+                    new DatabaseWriter(context, weatherList).execute().get();
+                } else {
+                    deleteData(context);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        } else {
+            Toast.makeText(context, R.string.toast_no_internet_connection,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

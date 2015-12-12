@@ -1,7 +1,5 @@
 package ua.marinovskiy.weatherapp.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +14,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import ua.marinovskiy.weatherapp.R;
-import ua.marinovskiy.weatherapp.dialogs.DialogFirstRun;
-import ua.marinovskiy.weatherapp.services.ReminderService;
+import ua.marinovskiy.weatherapp.dialogs.FirstRunDialog;
+import ua.marinovskiy.weatherapp.fragments.MainFragment;
 import ua.marinovskiy.weatherapp.utils.DataUtil;
 import ua.marinovskiy.weatherapp.utils.ListUtil;
 
@@ -49,12 +47,9 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         mFirstRun = getPreferences(MODE_PRIVATE);
         if (mFirstRun.getBoolean("no_city", true)) {
-            DialogFirstRun first_run_dialog = new DialogFirstRun();
+            FirstRunDialog first_run_dialog = new FirstRunDialog();
             first_run_dialog.setCancelable(false);
             first_run_dialog.show(getSupportFragmentManager(), "");
-        } else {
-            if (ListUtil.isConnected(mContext))
-                startUpdateService();
         }
     }
 
@@ -77,11 +72,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.action_refresh:
-                /** load data from JSON **/
                 if (ListUtil.isConnected(mContext)) {
                     DataUtil.uploadData(mContext);
+                    new MainFragment().updateData();
                 } else {
-                    Toast.makeText(mContext, "No internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.toast_no_internet_connection,
+                            Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.action_settings:
@@ -99,13 +95,5 @@ public class MainActivity extends AppCompatActivity
         String city = mPrefSettings.getString("city", "");
         String weatherIn = getResources().getString(R.string.toolbar_titile_template);
         getSupportActionBar().setTitle(String.format("%s %s", weatherIn, city));
-    }
-
-    private void startUpdateService() {
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        long time = System.currentTimeMillis();
-        Intent intent = new Intent(this, ReminderService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
-        alarmManager.setRepeating(AlarmManager.RTC, time, 60000, pendingIntent);
     }
 }

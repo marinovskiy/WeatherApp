@@ -25,7 +25,7 @@ public class DatabaseWriter extends AsyncTask<Void, Void, Void> {
         /** delete old data **/
         DataUtil.deleteData(mContext);
 
-        Realm mRealm = Realm.getInstance(mContext);
+        Realm mRealm = Realm.getDefaultInstance();
         mRealm.beginTransaction();
         for (int i = 0; i < mWeatherList.size(); i++) {
             Weather weather = new Weather();

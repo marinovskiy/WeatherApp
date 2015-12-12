@@ -1,5 +1,7 @@
 package ua.marinovskiy.weatherapp.loaders;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -17,6 +19,12 @@ import ua.marinovskiy.weatherapp.utils.JSONUtil;
 public class JSONLoader extends AsyncTask<String, Void, List<Weather>> {
 
     private String mResultJson = "";
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+    }
 
     @Override
     protected List<Weather> doInBackground(String... urls) {
@@ -44,5 +52,9 @@ public class JSONLoader extends AsyncTask<String, Void, List<Weather>> {
         return JSONUtil.parse(mResultJson);
     }
 
+    @Override
+    protected void onPostExecute(List<Weather> weatherList) {
+        super.onPostExecute(weatherList);
+    }
 }
 

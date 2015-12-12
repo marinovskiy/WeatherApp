@@ -3,6 +3,7 @@ package ua.marinovskiy.weatherapp.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -24,14 +27,11 @@ import ua.marinovskiy.weatherapp.utils.DataUtil;
 public class MainFragment extends Fragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static RealmResults<Weather> sRealmResults;
-
     private Context mContext;
     private Realm mRealm;
-    private RecyclerView mRecyclerView;
+    private RealmResults<Weather> mRealmResults;
     private RecyclerViewAdapter mRecyclerViewAdapter;
-    private DetailsFragment mDetailsFragment;
-
+    private RecyclerView mRecyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,8 +48,6 @@ public class MainFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity().getApplicationContext();
-        mDetailsFragment = (DetailsFragment) getFragmentManager().
-                findFragmentById(R.id.fragment_weather_details);
 
         SharedPreferences mPrefSettings = PreferenceManager.getDefaultSharedPreferences(mContext);
         mPrefSettings.registerOnSharedPreferenceChangeListener(this);
@@ -58,10 +56,10 @@ public class MainFragment extends Fragment
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mRealm = Realm.getInstance(mContext);
-        sRealmResults = mRealm.where(Weather.class).findAll();
+        mRealm = Realm.getDefaultInstance();
+        mRealmResults = mRealm.where(Weather.class).findAll();
 
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mContext, sRealmResults);
+        mRecyclerViewAdapter = new RecyclerViewAdapter(mContext, mRealmResults);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
         mRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -85,13 +83,15 @@ public class MainFragment extends Fragment
         updateData();
     }
 
-    private void updateData() {
-        sRealmResults = mRealm.where(Weather.class).findAll();
+    public void updateData() {
+        mRealmResults = mRealm.where(Weather.class).findAll();
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     private void onItemSelected(int position) {
-        if (!mDetailsFragment.isInLayout()) {
+        DetailsFragment mDetailsFragment = (DetailsFragment) getFragmentManager().
+                findFragmentById(R.id.fragment_weather_details);
+        if ((mDetailsFragment == null) || (!mDetailsFragment.isInLayout())) {
             Intent intent = new Intent(mContext, DetailsActivity.class);
             intent.putExtra("position", position);
             startActivity(intent);
