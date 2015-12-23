@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Main">
-        <ListPreference
-            android:entries="@array/cities"
-            android:entryValues="@array/cities"
+        <EditTextPreference
             android:key="city"
-            android:summary="Write city where you want to see weather"
+            android:summary="Enter name of city"
             android:title="City" />
+        <!--<ListPreference-->
+        <!--android:entries="@array/cities"-->
+        <!--android:entryValues="@array/cities"-->
+        <!--android:key="city"-->
+        <!--android:summary="Write city where you want to see weather"-->
+        <!--android:title="City" />-->
         <ListPreference
             android:defaultValue="k"
             android:entries="@array/measure_sign"

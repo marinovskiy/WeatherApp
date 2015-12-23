@@ -30,9 +30,8 @@ public class DetailsActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(String.format("%s %s", weatherIn, city));
         }
 
-        // remove toolbar's shadow if current version LOLLIPOP or above
+        /** set toolbar's shadow if current version LOLLIPOP or above **/
         if (Build.VERSION.SDK_INT >= 21) {
-            findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
             getSupportActionBar().setElevation(4);
         }
 

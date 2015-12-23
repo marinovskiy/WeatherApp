@@ -2,6 +2,7 @@ package ua.marinovskiy.weatherapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 
@@ -16,7 +17,7 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.settings);
 
         Context mContext = getActivity().getApplicationContext();
-        ListPreference mCityPreference = (ListPreference) findPreference("city");
+        EditTextPreference mCityPreference = (EditTextPreference) findPreference("city");
         if (!ListUtil.isConnected(mContext)) {
             mCityPreference.setEnabled(false);
         }

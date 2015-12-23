@@ -14,7 +14,6 @@ import ua.marinovskiy.weatherapp.utils.ListUtil;
 
 public class MyApplication extends Application {
 
-    public static String sFontPathLight;
     public static Typeface sLightTypeface;
 
     @Override
@@ -22,7 +21,7 @@ public class MyApplication extends Application {
         super.onCreate();
         Context mContext = getApplicationContext();
 
-        sFontPathLight = mContext.getResources().getString(R.string.font_roboto_light);
+        String sFontPathLight = mContext.getResources().getString(R.string.font_roboto_light);
         sLightTypeface = Typeface.createFromAsset(mContext.getAssets(), sFontPathLight);
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
@@ -37,7 +36,8 @@ public class MyApplication extends Application {
         long time = System.currentTimeMillis();
         Intent intent = new Intent(this, NotificationService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
-        alarmManager.setRepeating(AlarmManager.RTC, time, 60000, pendingIntent);
+        long INTERVAL_3_HOUR = 60 * 60 * 1000;
+        alarmManager.setRepeating(AlarmManager.RTC, time, INTERVAL_3_HOUR, pendingIntent);
     }
 
 }

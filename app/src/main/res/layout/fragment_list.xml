@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_bottom_recycler_view"
-        android:layout_marginTop="@dimen/margin_top_recycler_view"
         android:scrollbars="vertical" />
 
 </LinearLayout>

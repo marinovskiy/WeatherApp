@@ -23,21 +23,18 @@ public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private SharedPreferences mFirstRun;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         setTitle();
 
-        /** remove toolbar's shadow if current version LOLLIPOP or above **/
+        /** set toolbar's shadow if current version LOLLIPOP or above **/
         if (Build.VERSION.SDK_INT >= 21) {
-            findViewById(R.id.view_toolbar_shadow).setVisibility(View.INVISIBLE);
             getSupportActionBar().setElevation(4);
         }
     }
@@ -71,15 +68,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_refresh:
-                if (ListUtil.isConnected(mContext)) {
-                    DataUtil.uploadData(mContext);
-                    new MainFragment().updateData();
-                } else {
-                    Toast.makeText(mContext, R.string.toast_no_internet_connection,
-                            Toast.LENGTH_SHORT).show();
-                }
-                return true;
             case R.id.action_settings:
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
