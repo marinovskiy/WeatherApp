@@ -26,7 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="@dimen/padding_layout_recycler_item">
+                android:paddingBottom="@dimen/padding_top_bot_layout_recycler_item"
+                android:paddingLeft="@dimen/padding_left_right_layout_recycler_item"
+                android:paddingTop="@dimen/padding_top_bot_layout_recycler_item">
 
                 <TextView
                     android:id="@+id/list_time_tv"
@@ -35,7 +37,7 @@
                 <TextView
                     android:id="@+id/list_date_tv"
                     style="@style/AppTheme.TextStyle.List"
-                    android:paddingTop="@dimen/padding_top_recycler_bottom_text"  />
+                    android:paddingTop="@dimen/padding_top_recycler_bottom_text" />
 
             </LinearLayout>
 
@@ -44,7 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="@dimen/padding_layout_recycler_item">
+                android:paddingBottom="@dimen/padding_top_bot_layout_recycler_item"
+                android:paddingLeft="@dimen/padding_left_right_layout_recycler_item"
+                android:paddingTop="@dimen/padding_top_bot_layout_recycler_item">
 
                 <TextView
                     android:id="@+id/list_temp_tv"
@@ -63,7 +67,9 @@
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:padding="@dimen/padding_layout_recycler_item">
+                android:paddingBottom="@dimen/padding_top_bot_layout_recycler_item"
+                android:paddingRight="@dimen/padding_left_right_layout_recycler_item"
+                android:paddingTop="@dimen/padding_top_bot_layout_recycler_item">
 
                 <ImageView
                     android:id="@+id/list_icon"

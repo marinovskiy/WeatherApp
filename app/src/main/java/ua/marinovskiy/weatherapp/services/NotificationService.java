@@ -24,6 +24,7 @@ public class NotificationService extends Service {
         if (ListUtil.isConnected(mContext)) {
             NotificationUtil.callUpdateNotification(mContext);
         }
+        stopSelf();
         return START_STICKY;
     }
 

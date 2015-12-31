@@ -5,7 +5,6 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -14,15 +13,10 @@ import ua.marinovskiy.weatherapp.utils.ListUtil;
 
 public class MyApplication extends Application {
 
-    public static Typeface sLightTypeface;
-
     @Override
     public void onCreate() {
         super.onCreate();
         Context mContext = getApplicationContext();
-
-        String sFontPathLight = mContext.getResources().getString(R.string.font_roboto_light);
-        sLightTypeface = Typeface.createFromAsset(mContext.getAssets(), sFontPathLight);
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
@@ -36,7 +30,7 @@ public class MyApplication extends Application {
         long time = System.currentTimeMillis();
         Intent intent = new Intent(this, NotificationService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
-        long INTERVAL_3_HOUR = 60 * 60 * 1000;
+        long INTERVAL_3_HOUR = 3 * 60 * 60 * 1000;
         alarmManager.setRepeating(AlarmManager.RTC, time, INTERVAL_3_HOUR, pendingIntent);
     }
 

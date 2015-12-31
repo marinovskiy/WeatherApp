@@ -16,7 +16,8 @@
 
     <!--recycler view items-->
     <dimen name="corner_radius_card_view">4dp</dimen>
-    <dimen name="padding_layout_recycler_item">5dp</dimen>
+    <dimen name="padding_top_bot_layout_recycler_item">5dp</dimen>
+    <dimen name="padding_left_right_layout_recycler_item">10dp</dimen>
     <dimen name="padding_top_recycler_bottom_text">8dp</dimen>
     <dimen name="size_recycler_image_weather_state">50dp</dimen>
 

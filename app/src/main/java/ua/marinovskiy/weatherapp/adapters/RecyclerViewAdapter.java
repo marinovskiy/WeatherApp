@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.realm.RealmResults;
-import ua.marinovskiy.weatherapp.MyApplication;
 import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.entities.Weather;
 import ua.marinovskiy.weatherapp.interfaces.OnItemClickListener;
@@ -74,11 +73,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mTvDate.setText(date);
         holder.mTvTemp.setText(String.valueOf(temp));
         holder.mTvDescription.setText(description);
-
-        holder.mTvTime.setTypeface(MyApplication.sLightTypeface);
-        holder.mTvDate.setTypeface(MyApplication.sLightTypeface);
-        holder.mTvTemp.setTypeface(MyApplication.sLightTypeface);
-        holder.mTvDescription.setTypeface(MyApplication.sLightTypeface);
 
         ListUtil.loadImg(mContext, holder.mImvIcon, iconId);
     }

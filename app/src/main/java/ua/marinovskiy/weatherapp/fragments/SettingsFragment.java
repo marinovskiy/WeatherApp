@@ -3,7 +3,6 @@ package ua.marinovskiy.weatherapp.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 
 import ua.marinovskiy.weatherapp.R;

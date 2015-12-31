@@ -3,7 +3,6 @@ package ua.marinovskiy.weatherapp.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -12,8 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -28,10 +25,11 @@ public class MainFragment extends Fragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Context mContext;
-    private Realm mRealm;
-    private RealmResults<Weather> mRealmResults;
-    private RecyclerViewAdapter mRecyclerViewAdapter;
+    public static Realm sRealm;
+    public static RealmResults<Weather> sRealmResults;
+    public static RecyclerViewAdapter sRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,12 +54,12 @@ public class MainFragment extends Fragment
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mRealm = Realm.getDefaultInstance();
-        mRealmResults = mRealm.where(Weather.class).findAll();
+        sRealm = Realm.getDefaultInstance();
+        sRealmResults = sRealm.where(Weather.class).findAll();
 
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mContext, mRealmResults);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
-        mRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+        sRecyclerViewAdapter = new RecyclerViewAdapter(mContext, sRealmResults);
+        mRecyclerView.setAdapter(sRecyclerViewAdapter);
+        sRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 onItemSelected(position);
@@ -72,7 +70,7 @@ public class MainFragment extends Fragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mRealm.close();
+        sRealm.close();
     }
 
     @Override
@@ -84,8 +82,8 @@ public class MainFragment extends Fragment
     }
 
     public void updateData() {
-        mRealmResults = mRealm.where(Weather.class).findAll();
-        mRecyclerViewAdapter.notifyDataSetChanged();
+        sRealmResults = sRealm.where(Weather.class).findAll();
+        sRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     private void onItemSelected(int position) {

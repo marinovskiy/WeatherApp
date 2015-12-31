@@ -57,6 +57,7 @@ public class DetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity().getApplicationContext();
+
         mRealm = Realm.getDefaultInstance();
         mRealmResults = mRealm.where(Weather.class).findAll();
 

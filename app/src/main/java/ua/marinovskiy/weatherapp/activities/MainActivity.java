@@ -1,6 +1,5 @@
 package ua.marinovskiy.weatherapp.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -10,14 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import ua.marinovskiy.weatherapp.R;
 import ua.marinovskiy.weatherapp.dialogs.FirstRunDialog;
+import ua.marinovskiy.weatherapp.entities.Weather;
 import ua.marinovskiy.weatherapp.fragments.MainFragment;
-import ua.marinovskiy.weatherapp.utils.DataUtil;
-import ua.marinovskiy.weatherapp.utils.ListUtil;
+import ua.marinovskiy.weatherapp.services.UpdateService;
 
 public class MainActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -68,9 +65,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_refresh:
+                Intent intentUpdate = new Intent(MainActivity.this, UpdateService.class);
+                startService(intentUpdate);
+                MainFragment.sRealmResults = MainFragment.sRealm.where(Weather.class).findAll();
+                MainFragment.sRecyclerViewAdapter.notifyDataSetChanged();
+                return true;
             case R.id.action_settings:
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

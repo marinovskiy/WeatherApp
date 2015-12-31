@@ -5,12 +5,6 @@
             android:key="city"
             android:summary="Enter name of city"
             android:title="City" />
-        <!--<ListPreference-->
-        <!--android:entries="@array/cities"-->
-        <!--android:entryValues="@array/cities"-->
-        <!--android:key="city"-->
-        <!--android:summary="Write city where you want to see weather"-->
-        <!--android:title="City" />-->
         <ListPreference
             android:defaultValue="k"
             android:entries="@array/measure_sign"

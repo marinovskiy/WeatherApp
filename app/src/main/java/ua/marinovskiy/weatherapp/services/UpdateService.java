@@ -21,7 +21,8 @@ public class UpdateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         DataUtil.uploadData(mContext);
-        return super.onStartCommand(intent, flags, startId);
+        stopSelf();
+        return START_NOT_STICKY;
     }
 
     @Nullable

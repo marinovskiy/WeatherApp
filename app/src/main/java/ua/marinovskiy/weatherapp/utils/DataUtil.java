@@ -5,12 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,7 +22,7 @@ public class DataUtil {
         String mCity = mPreferences.getString("city", "");
         String mUrlPart1 = context.getResources().getString(R.string.urlPart1);
         String mUrlPart2 = context.getResources().getString(R.string.urlPart2);
-        String mUrl = String.format("%s%s%s", mUrlPart1, mCity, mUrlPart2);
+        final String mUrl = String.format("%s%s%s", mUrlPart1, mCity, mUrlPart2);
 
         if (ListUtil.isConnected(context)) {
             try {
@@ -36,7 +30,7 @@ public class DataUtil {
                 List<Weather> weatherList = new JSONLoader().execute(mUrl).get();
                 if (!weatherList.isEmpty()) {
                     /** write new data into database **/
-                    new DatabaseWriter(context, weatherList).execute().get();
+                    new DatabaseWriter(context, weatherList).execute();
                 } else {
                     deleteData(context);
                 }
