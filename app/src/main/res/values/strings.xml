@@ -8,7 +8,7 @@
 
     <!--urls-->
     <string name="urlPart1">http://api.openweathermap.org/data/2.5/forecast?q=</string>
-    <string name="urlPart2">,us&amp;mode=json&amp;appid=2de143494c0b295cca9337e1e96b00e0</string>
+    <string name="urlPart2">,us&amp;mode=json&amp;appid=8d0cb862dd8ac58975b17b8694c61ac7</string>
 
     <!--details labels-->
     <string name="wind_label">Wind</string>
